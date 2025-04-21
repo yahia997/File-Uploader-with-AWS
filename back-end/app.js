@@ -19,7 +19,7 @@ app.use(express.json());
 // });
 
 // just for testing
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
   res.json('{"message": "wadddddyyyy"}');
 });
 
