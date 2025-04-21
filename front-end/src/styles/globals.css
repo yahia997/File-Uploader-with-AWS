@@ -1,0 +1,117 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  color: var(--white);
+}
+
+/* global variables */
+:root {
+  --dark-1: #171717;
+  --dark-2: #262626;
+  --dark-3: #363636;
+  --white: #fbfbfb;
+  --orange: #ee7452;
+}
+
+/* global classes */
+.f1 {
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-1);
+  height: 100vh;
+}
+
+main {
+  width: 50vw;
+  background-color: var(--dark-2);
+  border-radius: 15px;
+  padding: 30px 25px;
+}
+
+main > * {
+  width: 100%;
+}
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+button[type='submit'] {
+  border-radius: 8px;
+  background-color: var(--dark-3);
+  color: var(--white);
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  transition: all 0.4s ease;
+}
+
+button[type='submit']:hover {
+  opacity: 0.8;
+
+}
+
+form {
+  width: 100%;
+}
+
+label {
+  width: 100%;
+  border: var(--dark-3) dashed 3.1px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+input {
+  display: none;
+}
+
+.files {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.file {
+  background-color: var(--dark-3);
+  border: 1px solid rgba(255, 255, 255, 0.345);
+  width: 100%;
+  margin: 5px 0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+}
+
+.file div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-right: 10px;
+}
+
+h3 {
+  margin: 10px 0;
+}
+
+.file a {
+  background-color: var(--orange);
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 8px;
+}
