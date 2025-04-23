@@ -26,8 +26,6 @@ app.get('/api/files', async (req, res) => {
   try {
     const command = new ListObjectsV2Command({
       Bucket: process.env.AWS_BUCKET_NAME,
-      // Delimiter: '/',
-      // Prefix: ''
     });
 
     const { Contents } = await s3Client.send(command);

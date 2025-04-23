@@ -115,3 +115,10 @@ h3 {
   text-decoration: none;
   padding: 8px;
 }
+
+.folder button {
+  background-color: transparent;
+  color: inherit;
+  text-decoration: underline;
+  font-size: inherit;
+}

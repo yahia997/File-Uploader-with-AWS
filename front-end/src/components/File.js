@@ -1,5 +1,18 @@
+import { useEffect, useState } from "react";
+
 export default function File({obj}) {
-  const {name, size, url} = obj;
+  let {name, size} = obj;
+  const [url, setUrl] = useState();
+
+  useEffect(() => {
+    (async() => {
+      let res = await fetch(`http://localhost:8000/api/generate-download-url/${name}`);
+      if(res.ok) {
+        let u = await res.json();
+        setUrl(u['downloadURL']);
+      }
+    })();
+  }, [name]);
 
   return (
     <div className='file'>

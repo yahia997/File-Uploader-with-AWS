@@ -1,6 +1,6 @@
 import { useState} from 'react';
 
-export default function Form({setUploading, uploading}) {
+export default function Form({setUploading, uploading, path}) {
   const [file, setFile] = useState(null);
   const [fileSize, setFileSize] = useState(0);
   const [fileName, setFileName] = useState("");
@@ -27,7 +27,7 @@ export default function Form({setUploading, uploading}) {
     }
 
     // To get link for upload
-    var res = await fetch('http://localhost:8000/api/generate-upload-url', {
+    var res = await fetch(`http://localhost:8000/api/generate-upload-url`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
