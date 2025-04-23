@@ -21,34 +21,69 @@ const s3Client = new S3Client({
   },
 });
 
-// just for testing
-app.get('/hello', (req, res) => {
-  res.json('{"message": "wadddddyyyy"}');
-});
-
-// test s3
+// Get all Floders and files ------------------------------------------------------------
 app.get('/api/files', async (req, res) => {
   try {
     const command = new ListObjectsV2Command({
-      Bucket: process.env.AWS_BUCKET_NAME
-      // Prefix: '/'
+      Bucket: process.env.AWS_BUCKET_NAME,
+      // Delimiter: '/',
+      // Prefix: ''
     });
 
     const { Contents } = await s3Client.send(command);
-    const files = Contents
-      .filter(item => item.Size > 0)
+    const content = Contents
       .map(item => ({
-        name: item.Key.replace('uploads/', ''),
-        size: item.Size,
+        name: item.Key,
+        size: item.Size/1e6,
         lastModified: item.LastModified
       }));
 
-    res.json(files);
+    res.json(content);
   } catch (error) {
     console.error('Error listing files:', error);
     res.status(500).json({ error: 'Failed to list files' });
   }
 });
+// ---------------------------------------------------------------------------------
+
+
+// upload files -------------------------------------------------------------
+app.post('/api/generate-upload-url', async (req, res) => {
+  try {
+    const { fileName, fileType } = await req.body;
+    const command = new PutObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: fileName,
+      ContentType: fileType,
+    });
+    
+    const uploadURL = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    res.json({ uploadURL });
+  } catch (error) {
+    console.error('Error generating upload URL:', error);
+    res.status(500).json({ error: 'Failed to generate upload URL' });
+  }
+});
+// --------------------------------------------------------------------------------------------------------------------------
+
+// generate download link ----------------------------------------------------------------
+app.get('/api/generate-download-url/:fileName', async (req, res) => {
+  try {
+    const { fileName } = req.params;
+    const command = new GetObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: fileName,
+      ResponseContentDisposition: `attachment; filename="${fileName}"`,
+    });
+    
+    const downloadURL = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    res.json({ downloadURL });
+  } catch (error) {
+    console.error('Error generating download URL:', error);
+    res.status(500).json({ error: 'Failed to generate download URL' });
+  }
+});
+// -------------------------------------------------------------------------------------------------
 
 app.listen(port ,() => {
   console.log(`App is listening on port ${port}...`);
