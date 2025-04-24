@@ -12,7 +12,7 @@ import compression from 'compression';
 dotenv.config();
 
 const app = express();
-const port = 8000;
+const port = 80;
 app.use(cors());
 app.use(express.json());
 
@@ -25,6 +25,11 @@ const __dirname = path.dirname(__filename);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../front-end/build')));
+
+// Serve the React app's index.html at the root path
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../front-end/build', 'index.html'));
+});
 
 // for testing ------------------------------------------
 app.get('/api/test', (req, res) => {
