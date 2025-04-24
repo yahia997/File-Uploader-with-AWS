@@ -12,7 +12,7 @@ import compression from 'compression';
 dotenv.config();
 
 const app = express();
-const port = 80;
+const port = 8000;
 app.use(cors());
 app.use(express.json());
 
