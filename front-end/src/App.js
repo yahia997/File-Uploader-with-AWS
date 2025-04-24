@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     (async() => {
-      const res = await fetch('http://localhost:8000/api/files');
+      const res = await fetch('/api/files');
       if(res.ok) {
         const d = await res.json();
         setData(d);

@@ -3,6 +3,10 @@ import { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command } fr
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import compression from 'compression';
+
 
 // to load system variables
 dotenv.config();
@@ -11,6 +15,21 @@ const app = express();
 const port = 8000;
 app.use(cors());
 app.use(express.json());
+
+// To make the application faster
+app.use(compression());
+
+// Create __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../front-end/build')));
+
+// for testing ------------------------------------------
+app.get('/api/test', (req, res) => {
+  res.json('{"message from server": "Hellow I am yahya"}');
+});
 
 // Connect ot S3
 const s3Client = new S3Client({

@@ -6,7 +6,7 @@ export default function File({obj}) {
 
   useEffect(() => {
     (async() => {
-      let res = await fetch(`http://localhost:8000/api/generate-download-url/${name}`);
+      let res = await fetch(`/api/generate-download-url/${name}`);
       if(res.ok) {
         let u = await res.json();
         setUrl(u['downloadURL']);

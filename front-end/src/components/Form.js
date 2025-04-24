@@ -30,7 +30,7 @@ export default function Form({setUploading, uploading, path}) {
       }
       
       // To get link for upload
-      var res = await fetch(`http://localhost:8000/api/generate-upload-url`, {
+      var res = await fetch(`/api/generate-upload-url`, {
           method: "POST",
           headers: {
               'Content-Type': 'application/json',
