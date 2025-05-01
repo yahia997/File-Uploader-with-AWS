@@ -180,10 +180,10 @@ button[type='submit']:hover {
 - Download link tested  
 
 **Before:**  
-![Before Upload Screenshot](path/to/before.png)
+![Before Upload Screenshot](Images/Before.jpg)
 
 **After:**  
-![After Upload Screenshot](path/to/after.png)
+![After Upload Screenshot](Images/17.jpg)
 
 ---
 
